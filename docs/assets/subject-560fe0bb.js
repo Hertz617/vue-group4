@@ -1,0 +1,1 @@
+import{x as t}from"./index-af599a35.js";const u=e=>t.request({url:"api/subject/page",method:"post",data:e}),r=e=>t.request({url:"api/subject/add",method:"post",data:e}),c=e=>t.request({url:"api/subject/edit",method:"post",data:e}),o=e=>t.request({url:"api/subject/one",params:e}),a=e=>t.request({url:"api/subject/getSubjects/"+e.id,params:e});export{a,r as b,c,o as d,u as s};

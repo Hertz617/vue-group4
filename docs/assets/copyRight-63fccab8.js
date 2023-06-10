@@ -1,0 +1,1 @@
+import{x as o}from"./index-af599a35.js";const e=t=>o.request({url:"api/copyright/page",method:"post",data:t}),p=t=>o.request({url:"api/copyright/add",method:"post",data:t}),s=t=>o.request({url:"api/copyright/edit",method:"post",data:t}),i=t=>o.request({url:"api/copyright/one",method:"post",params:t});export{s as a,e as b,p as c,i as d};
