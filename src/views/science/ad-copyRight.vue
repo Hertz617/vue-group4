@@ -128,7 +128,7 @@ export default defineComponent({
                 this.page = page;
             }).catch(err => {
                 ElMessage("查询失败，没有该著作权")
-                console.log(err);
+                this.refresh();
             })
         },
         currentchange(current) {

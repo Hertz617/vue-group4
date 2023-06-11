@@ -30,7 +30,7 @@
     </div>
 
     <!-- 添加按钮点击后出现的表单 -->
-    <el-dialog v-model="dialogFormVisible" title="添加著作权信息">
+    <el-dialog v-model="dialogFormVisible" title="著作权信息编辑">
         <el-form :model="copyRight">
             <el-form-item label="著作权名称" :label-width="formLabelWidth">
                 <el-input v-model="copyRight.name" autocomplete="off" />
@@ -167,6 +167,15 @@ export default defineComponent({
         //控制表单的显示
         toAdd() {//控制添加表单的显示
             this.dialogFormVisible = true;
+            this.copyRight= {
+                "attachment": "",
+                "copyrightNo": "",
+                "finishTime": "",
+                "id": 0,
+                "name": "",
+                "publishTime": "",
+                "userId": parseInt(localStorage.getItem("UserID"))
+            }
         },
         selectById() {
             this.dialogFormVisibleById = true;

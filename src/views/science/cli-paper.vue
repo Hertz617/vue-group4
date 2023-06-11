@@ -8,14 +8,14 @@
     </div>
     <el-table :data="papers" style="width: 100%">
       <el-table-column fixed prop="id" label="论文编号" width="80" />
-      <el-table-column fixed prop="name" label="论文题目" width="120" />
-      <el-table-column fixed prop="publication" label="刊物" width="120" />
-      <el-table-column fixed prop="publicationCate" label="刊物种类" width="120" />
-      <el-table-column fixed prop="publishTime" label="发表时间" width="120" />
-      <el-table-column fixed prop="type" label="论文类型" width="120" />
-      <el-table-column fixed prop="userId" label="作者编号" width="80" />
-      <el-table-column fixed prop="attachment" label="佐证材料" width="300" />
-      <el-table-column fixed prop="count" label="引用次数" width="120" />
+      <el-table-column prop="name" label="论文题目" width="120" />
+      <el-table-column prop="publication" label="刊物" width="120" />
+      <el-table-column prop="publicationCate" label="刊物种类" width="120" />
+      <el-table-column prop="publishTime" label="发表时间" width="120" />
+      <el-table-column prop="type" label="论文类型" width="120" />
+      <el-table-column prop="userId" label="作者编号" width="80" />
+      <el-table-column prop="attachment" label="佐证材料" width="300" />
+      <el-table-column prop="count" label="引用次数" width="120" />
       <el-table-column fixed="right" label="Operations" width="120">
         <template #default="scope">
           <el-button link type="primary" size="small" @click="toEdit(scope.row)">更新</el-button>
@@ -27,11 +27,8 @@
       @current-change="currentchange" />
   </div>
 
-  <el-dialog v-model="dialogFormVisible" title="添加Paper表单">
+  <el-dialog v-model="dialogFormVisible" title="论文编辑">
     <el-form :model="Paper">
-      <el-form-item label="论文编号" :label-width="formLabelWidth">
-        <el-input v-model="Paper.id" autocomplete="off" />
-      </el-form-item>
       <el-form-item label="论文题目" :label-width="formLabelWidth">
         <el-input v-model="Paper.name" autocomplete="off" />
       </el-form-item>
@@ -41,8 +38,11 @@
       <el-form-item label="刊物种类" :label-width="formLabelWidth">
         <el-input v-model="Paper.publicationCate" autocomplete="off" />
       </el-form-item>
-      <el-form-item label="发表时间" :label-width="formLabelWidth">
+      <!-- <el-form-item label="发表时间" :label-width="formLabelWidth">
         <el-input v-model="Paper.publishTime" autocomplete="off" />
+      </el-form-item> -->
+      <el-form-item label="发表时间" :label-width="formLabelWidth">
+        <el-date-picker v-model="Paper.publishTime" type="date" placeholder="Pick a day"  autocomplete="off" />
       </el-form-item>
       <el-form-item label="论文类型" :label-width="formLabelWidth">
         <el-input v-model="Paper.type" autocomplete="off" />
@@ -166,7 +166,7 @@ export default defineComponent({
         this.papers = page.records;
         this.page = page;
       }).catch((err) => {
-        console.log(err);
+        ElMessage("获取页面失败，请联系管理员")
       });
     },
 
@@ -184,7 +184,6 @@ export default defineComponent({
       };
       GetOnePaper(params).then((res) => {
         this.dialogFormVisibleById = false;
-        console.log(res);
         this.paper.push(res.data.paper);
         const papers = this.paper;
         this.papers = papers;
@@ -196,7 +195,6 @@ export default defineComponent({
       const params = {
         id: fileList,
       };
-      console.log(params);
       getPaperByUserId(params).then((res) => {
         this.dialogFormVisibleByUserId = false;
         console.log(res);
@@ -205,7 +203,6 @@ export default defineComponent({
         this.page = page;
       }).catch(err => {
         ElMessage("您尚未上传论文")
-        console.log(err);
       })
     },
 
@@ -221,7 +218,7 @@ export default defineComponent({
             if (res.success) {
               this.getPapers(parseInt(localStorage.getItem("UserID")));
             } else {
-              console.log(res.msg);
+              ElMessage("删除失败，请联系管理员")
               return false;
             }
           })
@@ -231,6 +228,17 @@ export default defineComponent({
 
     toAdd() {
       this.dialogFormVisible = true;
+      this.Paper = {
+        attachment: "", //佐证材料
+        count: 0, //引用次数
+        id: 0, //论文编号
+        name: "", //论文题目
+        publication: "", //刊物
+        publicationCate: "", //刊物类型
+        publishTime: "", //发表时间
+        type: "", //类型
+        userId: parseInt(localStorage.getItem("UserID")), //作者Id
+      }
     },
     searchById() {
       this.dialogFormVisibleById = true;

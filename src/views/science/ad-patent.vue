@@ -122,12 +122,14 @@ export default defineComponent({
         id: id
       }
       patentPageId(params).then(res => {
+        console.log(res)
         this.dialogFormVisibleById = false;
         const page = res.data;
         this.patent = page.patents;
         this.page = page;
       }).catch(err => {
         ElMessage("查询失败，没有该专利")
+        this.refresh();
         console.log(err);
       })
     },

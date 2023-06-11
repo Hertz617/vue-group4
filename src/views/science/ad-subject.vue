@@ -128,6 +128,7 @@ export default defineComponent({
                 this.page = page;
             }).catch(err => {
                 ElMessage("查询失败，没有该课题")
+                this.refresh();
                 console.log(err);
             })
         },

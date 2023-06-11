@@ -36,7 +36,12 @@
         <el-input v-model="adPatent.userId" autocomplete="off" />
       </el-form-item> -->
       <el-form-item label="专利类型" :label-width="formLabelWidth">
-        <el-input v-model="adPatent.type" autocomplete="off" />
+        <!-- <el-input v-model="adPatent.type" autocomplete="off" /> -->
+        <el-select v-model="adPatent.type" placeholder="请选择专利类型" autocomplete="off">
+          <el-option label="发明专利" value="发明专利"></el-option>
+          <el-option label="实用新型专利" value=" 实用新型专利"></el-option>
+          <el-option label="外观设计" value="外观设计"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="授权时间" :label-width="formLabelWidth">
         <el-date-picker v-model="adPatent.empowerTime" autocomplete="off" placeholder="选择日期" />

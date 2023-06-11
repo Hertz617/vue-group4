@@ -8,9 +8,9 @@
   <button @click="toJump">跳转页面</button> -->
   <div>  
       <!--页面组件的占位-->
-      <RouterView name="Header"></RouterView>  
+      <!-- <RouterView name="Header"></RouterView>   -->
       <RouterView></RouterView>
-      <RouterView name="Footer"></RouterView>  
+      <!-- <RouterView name="Footer"></RouterView>   -->
   </div>  
  </template>
 <script>  
@@ -19,10 +19,13 @@ import MyComponent from './components/MyComponent.vue';
 export default defineComponent({
     components: { MyComponent },
     methods:{
+        // mounted(){
+        //     this.toJump()
+        // },
         toJump(){
             //代码跳转
             // push,replace
-            this.$router.replace({path:'/user',params:{id:1}})
+            this.$router.replace({path:'/login',params:{id:1}})
         }
     }
 });

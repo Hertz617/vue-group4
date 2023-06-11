@@ -29,7 +29,7 @@ import { userLogin } from '../../http';
 import { mapActions, storeToRefs } from 'pinia';
 import { useUserStore } from '../../store/user';
 export default defineComponent({
-  setup(){
+  setup() {
     // 组合式
     // const userStore = useUserStore();
     // // const {setToken,fillUserinfo}=storeToRefs(userStore);
@@ -38,6 +38,7 @@ export default defineComponent({
   },
   data() {
     return {
+      userType: "",
       userForm: {
         email: '',
         password: '',
@@ -57,7 +58,7 @@ export default defineComponent({
   },
   methods: {
     // 选项式
-     ...mapActions(useUserStore,['setToken','fillUserinfo']),
+    ...mapActions(useUserStore, ['setToken', 'fillUserinfo']),
     btnLogin() {
       const that = this;
       const formEl = that.$refs.ruleFormRef//取对象
@@ -67,21 +68,28 @@ export default defineComponent({
         if (valid) {
           //414090297@qq.com
           const res = userLogin(that.userForm)
-          // console.log(res);
           res.then(result => {
+            console.log(result.data.userinfo.userType);
+            this.userType = result.data.userinfo.userType;
             // console.log(result)
             //用户的状态：用户信息，用是否登录的标志token isLogin：true
             //pinia下次解决
-            //跳转页面
-            if(result.success){
+            //跳转页面this.$router.push({ path: '/scienceClient', query: { UserID: this.authCode } })
+            if (result.success) {
               const userinfo = result.data.userinfo;
               that.setToken(userinfo.token);
               that.fillUserinfo(userinfo);
-              this.$router.push('/')
-            }else{
+              if(result.data.userinfo.userType=="管理员"){
+                this.$router.push({ path: '/scienceAdmin'});
+              } else {
+                this.$router.push({ path: '/scienceClient' })
+
+                localStorage.setItem("UserID", result.data.userinfo.id);
+              }
+            } else {
               return false;
             }
-            
+
             // this.$router.push('/')
           }).catch(err => {
             console.log(err)
@@ -94,7 +102,7 @@ export default defineComponent({
 
 
     },
-    resetForm(){
+    resetForm() {
       const formEl = this.$refs.ruleFormRef
       formEl.resetFields()
     }

@@ -18,6 +18,9 @@ const routes = [
   },
   { path: '/index', redirect: '/' },
   {
+    path: '/login', name: 'login', component: () => import('../views/static/login.vue') //懒加载 
+  },
+  {
     path: '/user', name: 'user', component: User,
     meta: {
       title: 'user页面',
@@ -103,9 +106,6 @@ const routes = [
   },
   {
     path: '/smscoupon', name: 'smscoupon', component: () => import('../views/admin/sms-coupon.vue') //懒加载 
-  },
-  {
-    path: '/login', name: 'login', component: () => import('../views/static/login.vue') //懒加载 
   },
   {
     path: '/object', name: 'object', component: () => import('../views/static/object.vue'),//懒加载

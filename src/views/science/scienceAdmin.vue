@@ -1,7 +1,7 @@
 <template>
     <div>
         <span>管理员界面</span>
-        <router-link to="scienceLogin">返回登录</router-link>
+        <router-link to="login">返回登录</router-link>
           <el-container style="height: 750px; border: 1px solid #8c5d5d">
                     <el-aside width="200px" style="background-color: rgb(194, 207, 228)">
                 <!-- 菜单默认打开第一个 -->

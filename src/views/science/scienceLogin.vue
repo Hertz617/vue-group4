@@ -9,7 +9,7 @@
     
 <script>
 import { defineComponent } from 'vue';
-
+import { userinfoCheck } from '../../http/userinfo';
 export default defineComponent({
     
     data() {
@@ -30,12 +30,17 @@ export default defineComponent({
 
                 // console.log("去管理员界面")
             }else{
-                this.$router.push({ path: '/scienceClient', query: { UserID: this.authCode } })
+                this.$router.push({ path: '/scienceClient' })
                 localStorage.setItem("UserID", this.authCode);
                 // console.log("去用户界面")
             }
 
+        },
+
+        check(){
+
         }
+
     }
 });
 </script>
